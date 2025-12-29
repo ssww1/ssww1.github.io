@@ -33,13 +33,22 @@
   <div id="root"></div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const img = document.querySelector('img[alt="Sun Yixuan"]');
+    function replacePhoto() {
+      const img = document.querySelector('section#about img');
       if (img) {
-        img.src = 'pic.jpg';
+        img.src = 'assets/pic.jpg';
         img.srcset = '';
+        return true;
       }
-    });
+      return false;
+    }
+    // 尝试多次，等待 React 渲染完成
+    let tries = 0;
+    const timer = setInterval(() => {
+      if (replacePhoto() || tries++ > 20) {
+        clearInterval(timer);
+      }
+    }, 300);
   </script>
 </body>
 
